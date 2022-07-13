@@ -11,6 +11,8 @@ namespace ClockTask
         public int Hours { get; set; }
         public int Minutes { get; set; }
 
+        private const int fullCircleRadius = 360;
+
         public float GetClockDegree()
         {
             if(!ClockValidator.IsValid(this))
@@ -19,10 +21,10 @@ namespace ClockTask
             }
             float hoursArrowPositionInMinutes = 5 * (Hours + ((float) Minutes / 60));
             float differenceInMinutes = Math.Abs(hoursArrowPositionInMinutes - Minutes);
-            float degrees = differenceInMinutes / 60 * 360;
-            if (degrees > 180)
+            float degrees = differenceInMinutes / 60 * fullCircleRadius;
+            if (degrees > fullCircleRadius / 2)
             {
-                degrees = 360 - degrees;
+                degrees = fullCircleRadius - degrees;
             }
             return degrees;
         }
